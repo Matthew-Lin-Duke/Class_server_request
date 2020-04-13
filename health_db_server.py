@@ -10,6 +10,8 @@ def add_patient_to_db(name, id, age):
                    "id": id,
                    "age": age}
     db.append(new_patient)
+    print("Database is {}".format(db))
+    # Better in a log file
     return True
 
 
