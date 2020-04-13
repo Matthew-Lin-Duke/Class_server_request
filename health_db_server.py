@@ -140,4 +140,4 @@ def generate_test_results_string(patient_id):
 
 if __name__ == '__main__':
     init_database()
-    app.run()
+    app.run(host="0.0.0.0", port=5000)  # set the server IP of this virtual machine
