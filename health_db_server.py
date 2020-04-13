@@ -36,6 +36,8 @@ def post_new_patient():
     check_result = verify_new_patient_info(in_dict)
     if check_result is not True:
         return check_result, 400
+    if is_patient_in_db(in_dict["id"]) is True:
+        return "Patient {} is already on server".format(in_dict["id"]), 400
     add_patient_to_db(in_dict["name"], in_dict["id"], in_dict["age"])
     return "Patient added", 200
 
@@ -67,6 +69,7 @@ def post_add_test():
         return "Test added to patient id {}".format(in_dict["id"]), 200
     else:
         return "Patient {} is not found on server".format(in_dict["id"]), 400
+
 
 def verify_add_test_info(in_dict):
     expected_keys = ("id", "test_name", "test_result")

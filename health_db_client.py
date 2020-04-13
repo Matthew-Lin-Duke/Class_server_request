@@ -14,5 +14,15 @@ def add_some_patient():
         print("Success {}".format(r.text))
 
 
+def add_test():
+    new_test = {"id": 111,
+                "test_name": "hdl",
+                "test_result": 101}
+    r = requests.post(server_name+"/add_test", json=new_test)
+    print(r.status_code)
+    print(r.text)
+
+
 if __name__ == '__main__':
     add_some_patient()
+    add_test()
