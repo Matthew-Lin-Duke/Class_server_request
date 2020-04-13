@@ -1,6 +1,7 @@
 import requests
 
-server_name = "http://127.0.0.1:5000"
+# server_name = "http://127.0.0.1:5000"
+server_name = "http://vcm-14501.vm.duke.edu:5000"
 
 
 def add_some_patient():
@@ -24,7 +25,7 @@ def add_test():
 
 
 def get_results():
-    r = requests.get(server_name+"/get_results/103")
+    r = requests.get(server_name+"/get_results/111")
     if r.status_code != 200:
         print("Error {} - {}".format(r.status_code, r.text))
     else:
