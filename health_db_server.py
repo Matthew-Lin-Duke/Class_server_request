@@ -103,6 +103,41 @@ def add_test_to_patient(in_dict):
     return False
 
 
+@app.route("/get_results/<patient_id>", methods=["GET"])
+def get_get_results(patient_id):
+    check_result = verify_get_results_input(patient_id)
+    if type(check_result) is str:
+        return check_result, 400
+    answer = generate_test_results_string(check_result)
+    if answer is False:
+        return "Patient {} is not found on server".format(patient_id), 400
+    else:
+        return answer, 200
+
+
+def verify_get_results_input(patient_id):
+    try:
+        id = int(patient_id)
+    except ValueError:
+        return "Bad patient ID in URL"
+    if is_patient_in_db(id) is False:
+        return "Patient {} is not found on server".format(patient_id), 400
+    return id
+
+
+def generate_test_results_string(patient_id):
+    for patient in db:
+        if patient["id"] == patient_id:
+            if len(patient["tests"]) == 0:
+                return "No test results available"
+            out_string = ""
+            for test_results in patient["tests"]:
+                out_string += "{}: {} \n".format(test_results[0],
+                                                 test_results[1])
+            return out_string
+    return False
+
+
 if __name__ == '__main__':
     init_database()
     app.run()
